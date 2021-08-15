@@ -2,11 +2,11 @@ import { ChangeEvent, useState } from 'react';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { Event } from '../../../models/event';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
 
 
 interface Props {
 	setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
 	selectedEvent: Event | undefined;
 	createEvent: (event: Event) => void;
 	updateEvent: (event: Event) => void;
@@ -101,7 +101,7 @@ export default function EventForm(props: Props) {
 				</Form.Field>
 				<Button type='submit' floated='right' positive content='Submit' />
 				<Button
-					onClick={() => props.setFormOpen(false)}
+					as={Link} to='/event'
 					type='submit'
 					floated='right'
 					content='Cancel'

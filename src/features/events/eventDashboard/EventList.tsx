@@ -4,7 +4,6 @@ import { Event } from '../../../models/event';
 
 interface Props {
 	events: Event[];
-	selectEvent: (event: Event | undefined) => void;
 	deleteEvent: (id: string) => void;
 }
 export default function EventList(props: Props) {
@@ -14,7 +13,6 @@ export default function EventList(props: Props) {
 					<EventListItem
 						event={event}
 						key={event.id}
-						selectEvent={props.selectEvent}
 						deleteEvent={props.deleteEvent}
 					/>
 				))}
