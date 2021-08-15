@@ -8,17 +8,44 @@ import EventList from './EventList';
 interface Props {
 	formOpen: boolean;
 	setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	selectEvent: (event: Event | undefined) => void;
+	selectedEvent: Event | undefined;
 }
 export default function EventDashboard(props: Props) {
 	const [events, setEvents] = useState<Event[]>(sampleData);
-	//const [formEvent, setFormEvent] = useState(false);
+
+	function handleCreateEvent(event: Event): void {
+		setEvents([...events, event]);
+	}
+
+	function handleUpdateEvent(updatedEvent: Event): void {
+		setEvents(events.map((evt) => (evt.id === updatedEvent.id ? updatedEvent : evt)));
+		props.selectEvent(undefined);
+	}
+
+	function handleDeleteEvent(eventId: string) {
+		setEvents(events.filter((evt) => evt.id !== eventId));
+	}
     return (
 			<Grid>
 				<GridColumn width={10}>
-					<EventList events={events}/>
+					<EventList
+						events={events}
+						selectEvent={props.selectEvent}
+						deleteEvent={handleDeleteEvent}
+					/>
 				</GridColumn>
 				<GridColumn width={6}>
-				{props.formOpen && <EventForm setFormOpen={props.setFormOpen}/>}
+					{props.formOpen && (
+						<EventForm
+							setFormOpen={props.setFormOpen}
+							setEvents={setEvents}
+							createEvent={handleCreateEvent}
+							selectedEvent={props.selectedEvent}
+							updateEvent={handleUpdateEvent}
+							key={props.selectedEvent?.id}
+						/>
+					)}
 				</GridColumn>
 			</Grid>
 		);

@@ -4,6 +4,8 @@ import { Event } from '../../../models/event';
 
 interface Props {
 	event: Event;
+	selectEvent: (event: Event | undefined) => void;
+	deleteEvent: (id: string) => void;
 }
 export default function EventListItem(props: Props) {
     return (
@@ -12,11 +14,9 @@ export default function EventListItem(props: Props) {
 					<ItemGroup>
 						<Item>
 							<ItemImage size='tiny' circular src={props.event.hostPhotoURL} />
-								<ItemContent>
-									<ItemHeader content={props.event.title}></ItemHeader>
-								<ItemDescription>
-									Hosted by {props.event.hostedBy}
-								</ItemDescription>
+							<ItemContent>
+								<ItemHeader content={props.event.title}></ItemHeader>
+								<ItemDescription>Hosted by {props.event.hostedBy}</ItemDescription>
 							</ItemContent>
 						</Item>
 					</ItemGroup>
@@ -29,15 +29,26 @@ export default function EventListItem(props: Props) {
 				</Segment>
 				<Segment secondary>
 					<List horizontal>
-						<EventListAttendee />
-						<EventListAttendee />
-						<EventListAttendee />
+						{props.event.attendees.map((attendee) => (
+							<EventListAttendee key={attendee.id} attendee={attendee} />
+						))}
 					</List>
-            </Segment>
-            <Segment clearing>
-                <div> {props.event.description}</div>
-                <Button color='teal' floated='right' content='View'></Button>
-            </Segment>
+				</Segment>
+				<Segment clearing>
+					<div> {props.event.description}</div>
+					<Button
+						onClick={() => props.deleteEvent(props.event.id)}
+						color='red'
+						floated='right'
+						content='Delete'
+					/>
+					<Button
+						onClick={() => props.selectEvent(props.event)}
+						color='teal'
+						floated='right'
+						content='View'
+					/>
+				</Segment>
 			</SegmentGroup>
 		);
 }

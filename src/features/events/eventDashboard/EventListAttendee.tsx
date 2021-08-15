@@ -1,9 +1,13 @@
 import { ListItem, Image } from 'semantic-ui-react';
+import { Attendee } from '../../../models/attendee';
 
-export default function EventListAttendee() {
+interface Props{
+    attendee: Attendee;
+}
+export default function EventListAttendee(props: Props) {
     return (
         <ListItem>
-            <Image size='mini' circular src='/assets/user.png' />
+            <Image size='mini' circular src={props.attendee.photoURL} />
         </ListItem>
     );
 }
