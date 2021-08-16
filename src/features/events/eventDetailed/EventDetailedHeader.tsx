@@ -1,5 +1,6 @@
 import { Segment, Image, Item, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Event } from '../../../models/event';
 
 const eventImageStyle: React.CSSProperties = {
 	filter: 'brightness(30%)',
@@ -14,20 +15,27 @@ const eventImageTextStyle: React.CSSProperties = {
 	color: 'white',
 };
 
-export default function EventDetailedHeader() {
+interface Props{
+	event: Event | undefined;
+}
+
+export default function EventDetailedHeader(props: Props) {
 	return (
 		<Segment.Group>
 			<Segment basic attached='top' style={{ padding: '0' }}>
-				<Image src={`/assets/categoryImages/drinks.jpg`} fluid style={eventImageStyle} />
+				<Image src={`/assets/categoryImages/${props.event?.category}.jpg`} fluid style={eventImageStyle} />
 
 				<Segment basic style={eventImageTextStyle}>
 					<Item.Group>
 						<Item>
 							<Item.Content>
-								<Header size='huge' content='Event Title' style={{ color: 'white' }} />
-								<p>Event Date</p>
+								<Header
+									size='huge'
+									content={props.event?.title}
+									style={{ color: 'white' }} />
+								<p>{props.event?.date}</p>
 								<p>
-									Hosted by <strong>Bob</strong>
+									Hosted by <strong>{props.event?.hostedBy}</strong>
 								</p>
 							</Item.Content>
 						</Item>
@@ -38,8 +46,7 @@ export default function EventDetailedHeader() {
 			<Segment attached='bottom'>
 				<Button>Cancel My Place</Button>
 				<Button color='teal'>JOIN THIS EVENT</Button>
-
-				<Button as={Link} to={`/manage/`} color='orange' floated='right'>
+				<Button as={Link} to={`/manage/${props.event?.id}`} color='orange' floated='right'>
 					Manage Event
 				</Button>
 			</Segment>

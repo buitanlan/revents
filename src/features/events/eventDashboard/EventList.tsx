@@ -4,7 +4,6 @@ import { Event } from '../../../models/event';
 
 interface Props {
 	events: Event[];
-	deleteEvent: (id: string) => void;
 }
 export default function EventList(props: Props) {
     return (
@@ -13,7 +12,6 @@ export default function EventList(props: Props) {
 					<EventListItem
 						event={event}
 						key={event.id}
-						deleteEvent={props.deleteEvent}
 					/>
 				))}
 			</div>
