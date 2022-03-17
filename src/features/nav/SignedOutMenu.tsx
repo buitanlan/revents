@@ -1,7 +1,8 @@
 import { Menu, Button } from 'semantic-ui-react';
+import {Dispatch, SetStateAction} from "react";
 
 interface Props {
-    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    setAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 export default function SignedOutMenu(props: Props) {
 	return (

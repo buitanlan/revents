@@ -1,12 +1,13 @@
 import { Segment, Image, Item, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Event } from '../../../models/event';
+import {CSSProperties} from "react";
 
-const eventImageStyle: React.CSSProperties = {
+const eventImageStyle: CSSProperties = {
 	filter: 'brightness(30%)',
 };
 
-const eventImageTextStyle: React.CSSProperties = {
+const eventImageTextStyle: CSSProperties = {
 	position: 'absolute',
 	bottom: '5%',
 	left: '5%',

@@ -18,7 +18,7 @@ export default function EventListItem(props: Props) {
 						<Item>
 							<ItemImage size='tiny' circular src={props.event.hostPhotoURL} />
 							<ItemContent>
-								<ItemHeader content={props.event.title}></ItemHeader>
+								<ItemHeader content={props.event.title}/>
 								<ItemDescription>Hosted by {props.event.hostedBy}</ItemDescription>
 							</ItemContent>
 						</Item>

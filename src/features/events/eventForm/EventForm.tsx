@@ -36,7 +36,7 @@ export default function EventForm(props: Props) {
 			hostedBy: 'Bob',
 			attendees: [],
 			hostPhotoURL: '/assets/user.png',
-		});
+		} as Event);
 		props.history.push('/events');
 	}
 

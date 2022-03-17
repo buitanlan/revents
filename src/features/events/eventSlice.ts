@@ -6,18 +6,18 @@ const eventSlice = createSlice({
     name: 'event',
     initialState: sampleData,
     reducers: {
-        create: (state, action: PayloadAction<Event>) => { state.push(action.payload) },
+        create: (state, action: PayloadAction<Event>) => {
+            state.push(action.payload)
+        },
         update: (state, action: PayloadAction<Event>) => {
             const idx = state.findIndex(event => event.id === action.payload.id);
             if (idx !== -1) {
                 state[idx] = action.payload;
             }
+            return state;
         },
         remove: (state, action: PayloadAction<string>) => {
-            const idx = state.findIndex(event => event.id === action.payload);
-            if (idx !== -1) {
-                state.splice(idx, 1);
-            }
+            return  state.filter(event => event.id === action.payload);
         },
     
 
