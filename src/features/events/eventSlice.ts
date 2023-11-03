@@ -1,28 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { sampleData } from '../../app/api/sampleData';
-import { Event } from '../../models/event';
+import { AppEvent } from '../../app/types/appEvent';
 
-const eventSlice = createSlice({
-    name: 'event',
-    initialState: sampleData,
-    reducers: {
-        create: (state, action: PayloadAction<Event>) => {
-            state.push(action.payload)
-        },
-        update: (state, action: PayloadAction<Event>) => {
-            const idx = state.findIndex(event => event.id === action.payload.id);
-            if (idx !== -1) {
-                state[idx] = action.payload;
-            }
-            return state;
-        },
-        remove: (state, action: PayloadAction<string>) => {
-            return  state.filter(event => event.id === action.payload);
-        },
-    
+type State = {
+  events: AppEvent[];
+};
 
+const initialState: State = {
+  events: sampleData
+};
+
+export const eventSlice = createSlice({
+  name: 'events',
+  initialState,
+  reducers: {
+    createEvent: (state, action) => {
+      state.events.push(action.payload);
+    },
+    updateEvent: (state, action) => {
+      state.events[state.events.findIndex((evt) => evt.id === action.payload.id)] = action.payload;
+    },
+    deleteEvent: (state, action) => {
+      state.events.splice(
+        state.events.findIndex((evt) => evt.id === action.payload),
+        1
+      );
     }
+  }
 });
 
-export const { create, update, remove} = eventSlice.actions
-export default eventSlice.reducer
+export const { createEvent, updateEvent, deleteEvent } = eventSlice.actions;
