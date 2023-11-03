@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "pnpx prettier \"src/**/*.{js,jsx,ts,tsx,html,css,scss}\" --write",
-    "prepare": "cd .. && pnpx husky@8.0.3 install ./client/.husky"
+    "prepare": "pnpx husky@8.0.3 install ./client/.husky"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
