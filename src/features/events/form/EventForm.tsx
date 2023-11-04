@@ -5,8 +5,18 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/store/store';
 import { createEvent, updateEvent } from '../eventSlice';
 import { createId } from '@paralleldrive/cuid2';
+import { useForm } from 'react-hook-form';
 
 export default function EventForm() {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors, isValidating, isSubmitting }
+  } = useForm({
+    mode: 'onTouched'
+  });
   let { id } = useParams();
   const event = useAppSelector((state) => state.events.events.find((e) => e.id === id));
   const dispatch = useAppDispatch();
