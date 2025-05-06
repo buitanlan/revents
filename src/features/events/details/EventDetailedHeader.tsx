@@ -1,53 +1,36 @@
-import { Button, Header, Image, Item, Segment } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { AppEvent } from '../../../app/types/appEvent';
+import { Link } from 'react-router';
+import { useAppSelector } from '../../../lib/stores/store';
 
-type Props = {
-  event: AppEvent;
-};
+export default function EventDetailedHeader() {
+  const event = useAppSelector((state) => state.event.selectedEvent);
 
-export default function EventDetailedHeader({ event }: Props) {
-  const eventImageStyle = {
-    filter: 'brightness(30%)'
-  };
+  if (!event) return <div>Event not found</div>;
 
-  const eventImageTextStyle = {
-    position: 'absolute',
-    bottom: '5%',
-    left: '5%',
-    width: '100%',
-    height: 'auto',
-    color: 'white'
-  };
+  const host = event.attendees.find((x) => x.id === event.hostUid);
 
   return (
-    <Segment.Group>
-      <Segment basic attached="top" style={{ padding: '0' }}>
-        <Image src={`/categoryImages/${event.category}.jpg`} fluid style={eventImageStyle} />
+    <div className="card bg-base-100">
+      <figure className="h-64 brightness-50 rounded-lg">
+        <img src={`/categoryImages/${event.category}.jpg`} alt="event category image" className="w-full object-cover" />
+      </figure>
 
-        <Segment basic style={eventImageTextStyle}>
-          <Item.Group>
-            <Item>
-              <Item.Content>
-                <Header size="huge" content={event.title} style={{ color: 'white' }} />
-                <p>{event.date}</p>
-                <p>
-                  Hosted by <strong>{event.hostedBy}</strong>
-                </p>
-              </Item.Content>
-            </Item>
-          </Item.Group>
-        </Segment>
-      </Segment>
-
-      <Segment attached="bottom">
-        <Button>Cancel My Place</Button>
-        <Button color="teal">JOIN THIS EVENT</Button>
-
-        <Button as={Link} to={`/manage/${event.id}`} color="orange" floated="right">
-          Manage Event
-        </Button>
-      </Segment>
-    </Segment.Group>
+      <div className="card-body text-white justify-end absolute bottom-0 w-full">
+        <div className="flex justify-between">
+          <div>
+            <h2 className="card-title text-4xl">{event.title}</h2>
+            <p>{event.date}</p>
+            <p>Hosted by {host?.displayName}</p>
+          </div>
+          <div className="flex flex-col justify-end">
+            <div className="flex gap-3">
+              <Link to={`/manage/${event?.id}`} className="btn btn-secondary">
+                Manage event
+              </Link>
+              <button className="btn btn-primary">Join event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

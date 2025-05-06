@@ -1,23 +1,14 @@
-import { Container } from 'semantic-ui-react';
-import NavBar from './nav/NavBar';
-import { Outlet, useLocation } from 'react-router-dom';
-import HomePage from '../../features/home/HomePage';
+import AnimatedOutlet from '../router/AnimatedOutlet';
+import Navbar from './nav/Navbar';
 
 function App() {
-  const location = useLocation();
   return (
-    <>
-      {location.pathname === '/' ? (
-        <HomePage />
-      ) : (
-        <>
-          <NavBar />
-          <Container className="main">
-            <Outlet />
-          </Container>
-        </>
-      )}
-    </>
+    <div>
+      <Navbar />
+      <div className="container mx-auto px-10 mt-24">
+        <AnimatedOutlet />
+      </div>
+    </div>
   );
 }
 

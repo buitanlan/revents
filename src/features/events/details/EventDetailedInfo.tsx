@@ -1,46 +1,25 @@
-import { Button, Grid, Icon, Segment } from 'semantic-ui-react';
-import { AppEvent } from '../../../app/types/appEvent';
+import { CalendarIcon, InformationCircleIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { useAppSelector } from '../../../lib/stores/store';
 
-type Props = {
-  event: AppEvent;
-};
+export default function EventDetailedInfo() {
+  const event = useAppSelector((state) => state.event.selectedEvent);
 
-export default function EventDetailedInfo({ event }: Props) {
   return (
-    <Segment.Group>
-      <Segment attached="top">
-        <Grid>
-          <Grid.Column width={1}>
-            <Icon size="large" color="teal" name="info" />
-          </Grid.Column>
-          <Grid.Column width={15}>
-            <p>{event.description}</p>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-      <Segment attached>
-        <Grid verticalAlign="middle">
-          <Grid.Column width={1}>
-            <Icon name="calendar" size="large" color="teal" />
-          </Grid.Column>
-          <Grid.Column width={15}>
-            <span>{event.date}</span>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-      <Segment attached>
-        <Grid verticalAlign="middle">
-          <Grid.Column width={1}>
-            <Icon name="marker" size="large" color="teal" />
-          </Grid.Column>
-          <Grid.Column width={11}>
-            <span>{event.venue}</span>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Button color="teal" size="tiny" content="Show Map" />
-          </Grid.Column>
-        </Grid>
-      </Segment>
-    </Segment.Group>
+    <div className="card bg-base-100">
+      <div className="flex flex-col align-middle">
+        <div className="flex items-center gap-x-3 border-b border-neutral-300 py-3 pl-3">
+          <InformationCircleIcon className="size-8" />
+          <span>{event?.description}</span>
+        </div>
+        <div className="flex items-center gap-x-3 border-b border-neutral-300 py-3 pl-3">
+          <CalendarIcon className="size-8" />
+          <span>{event?.date}</span>
+        </div>
+        <div className="flex items-center gap-x-3 py-3 pl-3">
+          <MapPinIcon className="size-8" />
+          <span>{event?.venue}</span>
+        </div>
+      </div>
+    </div>
   );
 }
