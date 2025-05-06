@@ -1,18 +1,19 @@
-import { Grid, GridColumn } from 'semantic-ui-react';
-import { useAppSelector } from '../../../app/store/store';
-import EventList from './EventList';
+import EventCard from './EventCard';
+import { useAppSelector } from '../../../lib/stores/store';
 
 export default function EventDashboard() {
-  const { events } = useAppSelector((state) => state.events);
+  const { events: appEvents } = useAppSelector((state) => state.event);
 
   return (
-    <Grid>
-      <GridColumn width={10}>
-        <EventList events={events} />
-      </GridColumn>
-      <GridColumn width={6}>
-        <h1>Event Filters</h1>
-      </GridColumn>
-    </Grid>
+    <div className="flex flex-row w-full gap-6">
+      <div className="w-3/5">
+        <div className="flex flex-col gap-4">
+          {appEvents.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      </div>
+      <div className="w-2/5 overflow-hidden"></div>
+    </div>
   );
 }

@@ -1,19 +1,21 @@
-import { Link } from 'react-router-dom';
-import { Button, Container, Header, Icon, Image, Segment } from 'semantic-ui-react';
+import { UserGroupIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router';
 
 export default function HomePage() {
   return (
-    <Segment inverted textAlign="center" vertical className="masthead">
-      <Container>
-        <Header as="h1" inverted>
-          <Image size="massive" src="/logo.png" alt="logo" style={{ marginBottom: 12 }} />
-          Re-vents
-        </Header>
-        <Button size="huge" inverted as={Link} to="/events">
-          Get started
-          <Icon name="caret right" inverted />
-        </Button>
-      </Container>
-    </Segment>
+    <div className="hero">
+      <div className="hero-content text-center">
+        <div className="max-w-2xl flex flex-col items-center">
+          <UserGroupIcon className="size-96 text-primary" />
+          <h1 className="text-5xl font-bold py-6">Welcome to Re-vents</h1>
+          <div className="flex items-center gap-3">
+            <Link to="/events" className="btn btn-primary btn-lg">
+              View the events
+            </Link>
+            <button className="btn btn-info btn-lg">Learn more</button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
